@@ -4,6 +4,10 @@ html
   body
     h2 AJAX users App
     a(href='users/searchresult') Show all users
+    br
+    a(href='newuser') Add new user
+    br
+    a(href='users/search') Search for users
     each person in people
      ul
       li firstName: #{person.firstname}

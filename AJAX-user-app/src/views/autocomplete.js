@@ -2,21 +2,7 @@ var time = 0;
 var lasttime = 0;
 
 $(document).ready(function() {
-	// $("#autocomplete").on('keyup', function() {
-	// 	time = Date.now()
-	// 	if (time - lasttime > 300 || time === 0) {
-	// 		console.log("Updating" + (time-lasttime))
-	// 		lasttime = time;
-	// 		$.post(("/users/search/?autocomplete=" + $("#autocomplete").val()), function(results) {
-	// 			$("#searchResults").html("<ul>");
-	// 			for (result in results) {
-	// 				if ($('#autocomplete').val() === "") {} else {
-	// 					$("#searchResults").append("<li>" + results[result] + "</li>");
-	// 				}
-	// 			}
-	// 		})
-	// 	}
-	// });
+	
 $("#autocomplete").on('keyup', function() {
 	time = Date.now()
 	if (time - lasttime > 300 || time === 0) {
@@ -40,9 +26,7 @@ $("#autocomplete").on('keyup', function() {
 				$("#searchResults ul").append("<li>" + results[i] + "</li>");
 				console.log('I is ' + i + ' result is ' + results[i])
 			}
-			// for (result in results) {
-
-			// }
+			
 		})
 	}
 });
