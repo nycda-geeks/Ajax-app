@@ -7,23 +7,9 @@ var bodyParser = require('body-parser');
 app.set('views', 'src/views');
 app.set('view engine', 'jade');
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/views'));
 
 app.use(bodyParser.json());
-
-// app.get('/', function(request, response) {
-//   fs.readFile('./resources/users.json', function(err, data) {
-//     if (err) {
-//       console.log(err);
-//     };
-
-//     var parsedData = JSON.parse(data);
-//     console.log(parsedData);
-//     response.render("index", {
-//       people: parsedData.userInformation
-//     });
-//   });
-// });
 
 app.get('/', function(request, response) {
   var users = [];
@@ -34,7 +20,7 @@ app.get('/', function(request, response) {
     users = JSON.parse(data);
 
     response.render('index', {
-      people: users.userInformation
+      people: users
     });
   });
 });
@@ -49,21 +35,6 @@ function giveData ( unicorn ) {
   });
 };
 
-
-// var originalFile = './resources/users.json';
-
-
-// function writeData ( newdata ) {
-//  fs.writeFile(originalFile, JSON.stringify(newdata, null, 4), function(err) {
-//   if(err) {
-//     console.log(err);
-//   } else {
-//     console.log("JSON saved to ");
-//   }
-// }); 
-// }
-
-// fs.appendFileSync("file.txt", 'My Text \n', "UTF-8",{'flags': 'a+'});
 
 
 app.get('/search', function (req, res) {  
@@ -87,26 +58,12 @@ app.get('/newuser', function (req, res) {
   res.render('new-user')
 });
 
-// var newuser = {
-//   firstname: "",
-//   lastname: "",
-//   email: "" 
-// };
-// app.post('/newuser', function (req, res) {
-//   giveData( function(file) {
-//     file.userInformation.forEach(function (user) {
-//       if (req.body.FirstName === user.firstname && req.body.LastName === user.lastname) {
-//         res.send("user already exist")
-//       } else {
-//         newuser.firstname = req.body.FirstName
-//         newuser.lastname = req.body.LastName
-//         newuser.email = req.body.email 
-        
-//       }
-//     });
-//     writeData (newuser);
-//   });
-// });
+app.get('/users/search', function(request, response) {
+  response.render('search');
+});
+
+
+
 app.post('/newuser', bodyParser.urlencoded({
   extended: true
 }), function(request, response) {
@@ -116,19 +73,57 @@ app.post('/newuser', bodyParser.urlencoded({
       throw err;
     }
     users = JSON.parse(data);
-    firstname = request.body.FirstName;
-    lastname = request.body.LastName;
+    firstname = request.body.firstname;
+    lastname = request.body.lastname;
     email = request.body.email;
 
     newUser = {
-      firstname: request.body.FirstName,
-      lastname: request.body.LastName,
+      firstname: request.body.firstname,
+      lastname: request.body.lastname,
       email: request.body.email     
     };
-    users.userInformation.push(newUser);
+    users.push(newUser);
 
     fs.writeFile('./resources/users.json', JSON.stringify(users));
     response.redirect('/')
+  });
+});
+
+
+app.post('/users/search', bodyParser.urlencoded({
+  extended: true
+}), function(request, response) {
+  fs.readFile('./resources/users.json', 'utf-8', function(err, data) {
+    if (err) {
+      throw err;
+    }
+    users = JSON.parse(data);
+    var results = [];
+    for (i = 0; i < users.length; i++) {
+      if ((users[i].firstname.indexOf(request.body.autocomplete) === 0) || (users[i].lastname.indexOf(request.body.lastautocomplete) === 0)) {
+        results.push(users[i].firstname + " " + users[i].lastname)
+      }
+    }
+    response.send(results)
+  });
+});
+
+app.get('/users/searchresult', function(request, response) {
+  fs.readFile('./resources/users.json', 'utf-8', function(err, data) {
+    if (err) {
+      throw err;
+    }
+    users = JSON.parse(data);
+    var results = [];
+
+    for (i = 0; i < users.length; i++) {
+      if (users[i].FirstName === request.query.firstname || users[i].lastname === request.query.lastname) {
+        results = results.concat(users[i]);
+      }
+    }
+    response.render('searchresult', {
+      results: results
+    });
   });
 });
 app.listen(3000)

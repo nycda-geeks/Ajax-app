@@ -1,0 +1,17 @@
+doctype html
+html
+	head
+		script(src='https://code.jquery.com/jquery-2.2.0.min.js')
+		script(type='text/javascript' src="../autocomplete.js")
+
+	body
+		a(href='/') Home
+		form(name= "searchUser" action='/users/searchresult' method='get')
+			label Firstname
+			input(type="text" name='firstname' id="autocomplete" placeholder="Firstname" autocomplete="off")
+			label Lastname
+			input(type="text" name = 'lastname' id="lastautocomplete" placeholder="Lastname" autocomplete="off")
+			input(type='submit' value='search user')
+		p#searchResults
+		
+

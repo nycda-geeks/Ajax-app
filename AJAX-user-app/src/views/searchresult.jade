@@ -1,0 +1,11 @@
+doctype html
+html
+	head
+	body
+		a(href='/') Home
+		br
+		p Your search result: 
+		each result in results
+			li name: #{result.firstname} #{result.lastname} email: #{result.email}
+			
+
