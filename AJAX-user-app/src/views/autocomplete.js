@@ -26,28 +26,25 @@ $("#autocomplete").on('keyup', function() {
 			autocomplete: $("#autocomplete").val()
 		}
 		$.post("/users/search/", postdata, function(results) {
-			$("#searchResults").html("<ul>");
-			for (result in results) {
-				if ($('#autocomplete').val() === "") {} else {
-					$("#searchResults").append("<li>" + results[result] + "</li>");
-				}
+			console.log(results)
+			//$("#choices").html('');
+			//$("#choices").text('');
+			//$("#choices").val('');
+			$("#choices").empty();
+			$("#searchResults").html("<ul></ul>");
+			for ( var i = 0; i < results.length; i++){
+				$("#choices").append("<option>" + results[i] + "</option>");
+				console.log('I is ' + i + ' result is ' + results[i])
 			}
+			for ( var i = 0; i < results.length; i++){
+				$("#searchResults ul").append("<li>" + results[i] + "</li>");
+				console.log('I is ' + i + ' result is ' + results[i])
+			}
+			// for (result in results) {
+
+			// }
 		})
 	}
 });
-$("#lastautocomplete").on('keyup', function() {
-	time = Date.now()
-	if (time - lasttime > 300 || time === 0) {
-		console.log("Updating" + (time-lasttime))
-		lasttime = time;
-		$.post(("/users/search/?lastautocomplete=" + $("#lastautocomplete").val()), function(results) {
-			$("#searchResults").html("");
-			for (result in results) {
-				if ($('#lastautocomplete').val() === "") {} else {
-					$("#searchResults").append("<li>" + results[result] + "</li>");
-				}
-			}
-		})
-	}
-});
+
 });

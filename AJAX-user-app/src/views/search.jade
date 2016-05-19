@@ -7,10 +7,10 @@ html
 	body
 		a(href='/') Home
 		form(name= "searchUser" action='/users/searchresult' method='get')
-			label Firstname
-			input(type="text" name='firstname' id="autocomplete" placeholder="Firstname" autocomplete="off")
-			label Lastname
-			input(type="text" name = 'lastname' id="lastautocomplete" placeholder="Lastname" autocomplete="off")
+			label Search user
+			input(type="text" name='choices' list="choices" id="autocomplete" placeholder="Firstname" autocomplete="off")
+			datalist(id="choices")
+				option(value="potato") potato
 			input(type='submit' value='search user')
 		p#searchResults
 		

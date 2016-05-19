@@ -99,8 +99,12 @@ app.post('/users/search', bodyParser.urlencoded({
     }
     users = JSON.parse(data);
     var results = [];
+    console.log('Search term: ' + request.body.autocomplete)
     for (i = 0; i < users.length; i++) {
-      if ((users[i].firstname.indexOf(request.body.autocomplete) === 0) || (users[i].lastname.indexOf(request.body.lastautocomplete) === 0)) {
+      console.log('Comparing ' + i + ' user')
+      console.log('Index returned: ' + users[i].firstname.indexOf(request.body.autocomplete) )
+      if ((users[i].firstname.indexOf(request.body.autocomplete) != -1) || (users[i].lastname.indexOf(request.body.autocomplete) != -1)) {
+        console.log('if triggered')
         results.push(users[i].firstname + " " + users[i].lastname)
       }
     }
@@ -117,7 +121,7 @@ app.get('/users/searchresult', function(request, response) {
     var results = [];
 
     for (i = 0; i < users.length; i++) {
-      if (users[i].FirstName === request.query.firstname || users[i].lastname === request.query.lastname) {
+      if (users[i].firstName === request.query.firstname || users[i].lastname === request.query.lastname) {
         results = results.concat(users[i]);
       }
     }
