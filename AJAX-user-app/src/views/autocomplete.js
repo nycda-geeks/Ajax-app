@@ -1,8 +1,7 @@
 var time = 0;
 var lasttime = 0;
 
-$(document).ready(function() {
-	
+$(document).ready(function() {	
 $("#autocomplete").on('keyup', function() {
 	time = Date.now()
 	if (time - lasttime > 300 || time === 0) {

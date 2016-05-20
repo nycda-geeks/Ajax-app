@@ -9,7 +9,12 @@ app.set('view engine', 'jade');
 
 app.use(express.static(__dirname + '/views'));
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded())
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 app.get('/', function(request, response) {
   var users = [];
@@ -46,8 +51,8 @@ app.post('/search', function (req, res) {
     var allusers =[];
     console.log(req.body)
 
-    file.userInformation.forEach(function (user){
-      if ( req.body.name === user.firstname ) 
+    file.forEach(function (user){
+      if ( req.body.name === user.firstname || req.body.email === user.email ) 
         allusers.push(user)
     })
     res.send(allusers)
