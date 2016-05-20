@@ -1,17 +1,24 @@
 var time = 0;
 var lasttime = 0;
 
+
 $(document).ready(function() {	
+	var cleartime;
 $("#autocomplete").on('keyup', function() {
-	time = Date.now()
-	if (time - lasttime > 300 || time === 0) {
-		console.log("Updating" + (time-lasttime))
-		lasttime = time;
-		var postdata = {
-			autocomplete: $("#autocomplete").val()
-		}
-		$.post("/users/search/", postdata, function(results) {
-			console.log(results)
+	
+		console.log("bloop")
+		// time = Date.now()
+		// if (time - lasttime > 300 || time === 0) {
+		// 	console.log("Updating" + (time-lasttime))
+		// 	lasttime = time;
+
+			var postdata = {
+				autocomplete: $("#autocomplete").val()
+			}
+			cleartime = setTimeout(function() {
+
+			$.post("/users/search/", postdata, function(results) {
+				console.log(results)
 			//$("#choices").html('');
 			//$("#choices").text('');
 			//$("#choices").val('');
@@ -27,7 +34,7 @@ $("#autocomplete").on('keyup', function() {
 			}
 			
 		})
-	}
+		// }
+}, 300);
 });
-
 });
