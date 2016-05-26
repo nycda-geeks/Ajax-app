@@ -9,3 +9,14 @@ a {
 ul {
 	color: purple;
 }
+
+body {
+    background-image: url("knip.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+
+}
+
+h1 {
+	text-align: center;
+}

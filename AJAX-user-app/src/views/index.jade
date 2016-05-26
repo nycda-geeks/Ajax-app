@@ -2,14 +2,19 @@ doctype html
 html
   head
    title Ajax users App
+   script(src='https://code.jquery.com/jquery-2.2.0.min.js')
+   script(type='text/javascript' src="../autocomplete.js")
    link(rel='stylesheet', href='/css.css', type='text/css' )
   body
+    h1 Curacao
     h2 AJAX users App
     a(href='users/searchresult') Show all users
     br
     a(href='newuser') Add new user
     br
     a(href='users/search') Search for users
+    br
+    a(href='search') Search
     each person in people
      ul
       li firstName: #{person.firstname}

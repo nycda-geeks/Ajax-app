@@ -3,10 +3,11 @@ html
 	head
 		script(src='https://code.jquery.com/jquery-2.2.0.min.js')
 		script(type='text/javascript' src="../autocomplete.js")
+		link(rel='stylesheet', href='/css.css', type='text/css' )
 
 	body
 		a(href='/') Home
-		form(name= "searchUser" action='/users/searchresult' method='get')
+		form(name= "searchUser" action='/users/userfound' method='post')
 			label Search user
 			input(type="text" name='choices' list="choices" id="autocomplete" placeholder="Firstname" autocomplete="off")
 			datalist(id="choices")
