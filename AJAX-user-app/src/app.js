@@ -139,7 +139,7 @@ app.post('/users/search', bodyParser.urlencoded({
       if ((users[i].firstname.indexOf(request.body.autocomplete) != -1) || (users[i].lastname.indexOf(request.body.autocomplete) != -1)) {
         console.log('if triggered')
         results.push(users[i].firstname + " " + users[i].lastname)
-      }
+      } 
     }
     response.send(results)
   });
@@ -150,21 +150,19 @@ app.get('/users/searchresult', function(request, response) {
     if (err) {
       throw err;
     }
-    users = JSON.parse(data);
-    var results = [];
-    console.log('banana')
-    console.log(request.query.firstname);
+    results = JSON.parse(data);
+    // var results = [];
+    // console.log(request.query.firstname);
 
-    for (i = 0; i < users.length; i++) {
-      if (users[i].firstName === request.query.firstname || users[i].lastname === request.query.lastname) {
-        results = results.concat(users[i]);
-      }
-    }
-    response.render('userfound', {
+    // for (i = 0; i < users.length; i++) {
+    //   if (users[i].firstName === request.query.firstname || users[i].lastname === request.query.lastname) {
+    //     results = results.concat(users[i]);
+    //   }
+    // }
+    response.render('searchresult', {
       results: results
     });
   });
 });
-
 
 app.listen(3000)

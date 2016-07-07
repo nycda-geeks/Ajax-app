@@ -45,7 +45,6 @@ $(document).ready(function() {
 				$("#searchResults ul").append("<li>" + results[i] + "</li>");
 				console.log('I is ' + i + ' result is ' + results[i])
 			}
-			
 		})
 		// }
 	}, 300);
